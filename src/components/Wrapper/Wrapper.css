@@ -1,0 +1,10 @@
+.wrapper{
+    background-color: rgb(var(--bg-color));
+    margin: auto;
+    width: 500px;
+    border-radius: 25px;
+    padding: 0 5px 5px 5px;
+}
+h2{
+    text-align: center;
+}
