@@ -1,0 +1,13 @@
+.form{
+    margin: 10px 0 30px 15px;
+}
+.form input{
+    outline: none;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    transition: border-color 0.4s ease;
+    border: 1px solid rgb(210, 208, 208);
+}
+.form input:focus{
+    border-color: rgb(50, 88, 177);
+}
