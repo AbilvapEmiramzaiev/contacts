@@ -2,11 +2,19 @@ import './Wrapper.css';
 import ContactItem from '../ContactItem/ContactItem';
 import { contacts as contactsData } from '../../data/static.contacts.db.js'
 import CreateContactForm from '../CreateContactForm/CreateContactForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { ContactService } from '../../services/contacts.service';
 function Wrapper() {
 
-    const [contacts, setContacts] = useState(contactsData)
-
+    const [contacts, setContacts] = useState([])
+    useEffect(()=>{
+        const fetchContacts = async ()=>{
+            const response = await ContactService.getAll();
+            setContacts(response);
+        }
+        fetchContacts();
+    }, [])
     return (
         <div className="wrapper">
             <h2>Contact list</h2>
