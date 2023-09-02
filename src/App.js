@@ -1,9 +1,10 @@
 import './App.css';
 import Wrapper from './components/Wrapper/Wrapper.jsx';
+import Router from './components/ui/Router';
 function App() {
   return (
     <div className="App">
-      <Wrapper></Wrapper>
+      <Router></Router>
     </div>
   );
 }
