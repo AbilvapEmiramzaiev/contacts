@@ -3,8 +3,8 @@ import ContactItem from '../ContactItem/ContactItem';
 import { contacts as contactsData } from '../../data/static.contacts.db.js'
 import CreateContactForm from '../CreateContactForm/CreateContactForm';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { ContactService } from '../../services/contacts.service';
+import { Link } from 'react-router-dom';
 function Wrapper() {
 
     const [contacts, setContacts] = useState([])
@@ -29,6 +29,7 @@ function Wrapper() {
                     )
                 }
             </div>
+            <Link to='./create-contact'>Create</Link>
         </div>
     )
 }
