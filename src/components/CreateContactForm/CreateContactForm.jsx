@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from './CreateContactForm.module.css'
-
+import { ContactService } from "../../services/contacts.service";
 const clearData = {
     name: '',
     email: ''
@@ -12,9 +12,13 @@ const CreateContactForm = ({ setContacts }) => {
     })
 
     const createContact = e => {
-        e.preventDefault()
-        setContacts(prev => [{ id: prev.length + 1, ...data }, ...prev])
-        setData(clearData)
+        e.preventDefault();
+        const addContact = async () => {
+            let id = await ContactService.getLastId()+1;
+            await ContactService.addContact({id:id, ...data});
+            setData(clearData)
+        }
+        addContact();
     }
 
     return (
