@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { ContactService } from '../../services/contacts.service';
 import { Link } from 'react-router-dom';
 function Wrapper() {
-
     const [contacts, setContacts] = useState([])
     useEffect(()=>{
         const fetchContacts = async ()=>{
@@ -18,7 +17,6 @@ function Wrapper() {
     return (
         <div className="wrapper">
             <h2>Contact list</h2>
-            <CreateContactForm setContacts={setContacts}/>
             <div>
                 {contacts.length ? 
                     (contacts.map(el => (
