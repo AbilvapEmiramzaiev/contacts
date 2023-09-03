@@ -1,11 +1,14 @@
 import { useState } from "react";
 import styles from './CreateContactForm.module.css'
 import { ContactService } from "../../services/contacts.service";
+import { useNavigate } from 'react-router-dom'
 const clearData = {
     name: '',
     email: ''
 }
+
 const CreateContactForm = ({ setContacts }) => {
+    const navigate = useNavigate();
     const [data, setData] = useState({
         name: '',
         email: ''
@@ -14,11 +17,15 @@ const CreateContactForm = ({ setContacts }) => {
     const createContact = e => {
         e.preventDefault();
         const addContact = async () => {
-            let id = await ContactService.getLastId()+1;
-            await ContactService.addContact({id:id, ...data});
-            setData(clearData)
+            let id = await ContactService.getLastId();
+            if(id === -1) { return; }//no id found / server is off
+            else{
+                await ContactService.addContact({id:id+1, ...data});
+            } 
+            setData(clearData)  
         }
         addContact();
+        navigate('/')
     }
 
     return (

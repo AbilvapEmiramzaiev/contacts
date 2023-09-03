@@ -18,6 +18,7 @@ export const ContactService = {
             .catch((error) => {
                 console.log(error.message);
             })
+        if(response === undefined) return -1;
         return response.data.length;
     },
     async addContact(newContacts) {
