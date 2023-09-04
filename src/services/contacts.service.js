@@ -22,8 +22,14 @@ export const ContactService = {
         return response.data.length;
     },
     async addContact(newContacts) {
-        axios.post(jsonserverURL, newContacts)
+       await axios.post(jsonserverURL, newContacts)
             .catch((error) => {
+                console.log(error.message);
+            })
+    },
+    async delContact(id){
+        await axios.delete(jsonserverURL+`/${id}`)
+            .catch((error) =>{
                 console.log(error.message);
             })
     }

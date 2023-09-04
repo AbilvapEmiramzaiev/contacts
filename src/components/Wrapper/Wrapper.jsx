@@ -34,7 +34,7 @@ function Wrapper() {
             <div>
                 {filteredContacts.length ? 
                     (filteredContacts.map(el => (
-                        <ContactItem key={el.id} name={el.name} email={el.email} />
+                        <ContactItem key={el.id} id={el.id} name={el.name} email={el.email} />
                     ))) :
                     (
                         <p>There are no contacts.</p>

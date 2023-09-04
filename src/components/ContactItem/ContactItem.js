@@ -1,6 +1,6 @@
 import './ContactItem.css';
 import DeleteButton from '../DeleteButton/DeleteButton';
-function ContactItem({ name, email }) {
+function ContactItem({id, name, email }) {
 
     return (
         <div className='item'>
@@ -9,8 +9,7 @@ function ContactItem({ name, email }) {
                 <div className='contact-email'>{email}</div>
             </div>
             <div>
-                <DeleteButton />
-                <DeleteButton />
+                <DeleteButton id={id}/>
             </div>
         </div>
 
