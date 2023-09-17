@@ -1,9 +1,10 @@
 import './DeleteButton.css'
 import { ContactService } from '../../services/contacts.service'
-function DeleteButton({id}) {
+function DeleteButton({id, setContactsIsChanged}) {
     
     const deleteContact = async () =>{
-        await ContactService.delContact(id);
+        await ContactService.delContact(id)
+            .then(setContactsIsChanged(true));
     }
     return (
         <button onClick={() => deleteContact()}>

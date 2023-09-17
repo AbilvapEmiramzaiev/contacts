@@ -1,30 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState, useId } from "react";
 import styles from './CreateContactForm.module.css'
 import { ContactService } from "../../services/contacts.service";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 const clearData = {
     name: '',
     email: ''
 }
 
-const CreateContactForm = ({ setContacts }) => {
+const CreateContactForm = ({setContactsIsChanged}) => {
     const navigate = useNavigate();
+    const [id,setId] = useState(-1);
+    const [params] = useSearchParams();
     const [data, setData] = useState({
         name: '',
         email: ''
     })
+    const  getUniqueId =  () =>{
+        console.log(id)
+         setId(a => a + 1);
+        console.log(id)
+        return(id);
+    }
+    useEffect(() => {
+         ContactService.getLastId()
+            .then(value =>{setId(value)})
+        if (params.get('def_name')) {
+            const linkParams = {
+                name: params.get('def_name'),
+                email: params.get('def_email')
+            }
+            setData(linkParams)
+        }
+    }, [])
 
     const createContact = e => {
         e.preventDefault();
-        const addContact = async () => {
-            let id = await ContactService.getLastId();
-            if(id === -1) { return; }//no id found / server is off
-            else{
-                await ContactService.addContact({id:id+1, ...data});
-            } 
-            setData(clearData)  
+        let addContact;
+        if(params.get('def_name')){
+           addContact = async () =>{ 
+            const oldContact = await ContactService.findByName(params.get('def_name'));
+            await ContactService.editContact({id: oldContact[0].id, ...data});
+        }
+        }
+        else{
+         addContact = async () => {
+            setId(prev => prev +1);
+            await ContactService.addContact({ id:  id+1, ...data });
+        }
         }
         addContact();
+        setData(clearData)
+        setContactsIsChanged(true);
         navigate('/')
     }
 
