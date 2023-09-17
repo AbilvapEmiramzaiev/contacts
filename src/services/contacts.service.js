@@ -18,18 +18,34 @@ export const ContactService = {
             .catch((error) => {
                 console.log(error.message);
             })
-        if(response === undefined) return -1;
-        return response.data.length;
+        if (response === undefined) return -1;
+        const maxId = response.data.reduce((max,currentObj) =>{
+            return Math.max(max, currentObj.id)
+        },-1);
+        return maxId;
     },
     async addContact(newContacts) {
-       await axios.post(jsonserverURL, newContacts)
+        await axios.post(jsonserverURL, newContacts)
             .catch((error) => {
                 console.log(error.message);
             })
     },
-    async delContact(id){
-        await axios.delete(jsonserverURL+`/${id}`)
-            .catch((error) =>{
+    async editContact(editedContact) {
+        await axios.put(jsonserverURL + `/${editedContact.id}`, editedContact)
+        .catch((error) => {
+                console.log(error.message);
+            })
+    },
+    async findByName(name) {
+        const response =  await axios.get(jsonserverURL + `?name=${name}`)
+            .catch((error) => {
+                console.log(error.message);
+            });
+            return response.data;
+    },
+    async delContact(id) {
+        await axios.delete(jsonserverURL + `/${id}`)
+            .catch((error) => {
                 console.log(error.message);
             })
     }
