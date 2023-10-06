@@ -30,7 +30,7 @@ function Wrapper({ contactsIsChanged, setContactsIsChanged }) {
         <div className="bg-white mt-4 h-screen mx-auto w-500 p-5 rounded-2xl">
             <span className="block text-center mt-2 font-semibold font-serif text-xl">Contact list</span>
             <SearchBar onSearch={handleSearch} />
-            <div className='h-[400px] overflow-x-auto'>
+            <div className='h-[65%] overflow-x-auto'>
                 {filteredContacts.length ?
                     (filteredContacts.map(el => (
                         <ContactItem key={el.id} id={el.id} name={el.name} email={el.email}
